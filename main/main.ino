@@ -5,13 +5,6 @@
 
 #include <Servo.h>
 
-
-Servo motorL2;
-Servo motorL1;
-Servo motorR2;
-Servo motorR1;
-
-
 /* ---------------------------------
             SERVO MOTORES
 El parámetro es la velocidad angular
@@ -19,34 +12,48 @@ El parámetro es la velocidad angular
 "0" gira en horario
 "180" gira en antihorario
 --------------------------------- */
+Servo motorL2;
+Servo motorL1;
+Servo motorR2;
+Servo motorR1;
 
-void izq(int dir){
+void izq(int dir){ // Mover el par izquierdo de motores
   motorL1.write(90 + dir);
   motorL2.write(90 + dir);
 }
 
-void der(int dir){
+void der(int dir){ // Mover el par derecho de motores
   motorR1.write(90 - dir);
   motorR2.write(90 - dir);
 }
 
-void mStop(){
+void mStop(){ // Parar los motores
   izq(0);
   der(0);
 }
 
-void mLeft(){
+void mLeft(){ // Girar 90° a la izquierda
   izq(10);
   der(-10);
   delay(300);
   mStop();
 }
 
-void mRight(){
+void mRight(){ // Girar 90° a la derecha
   izq(-10);
   der(10);
   delay(300);
   mStop();
+}
+
+void mFront(){ // Mantener avance
+  izq(10);
+  der(10);
+}
+
+void mBack(){ // Mantener retroceso
+  izq(-10);
+  der(-10);
 }
 
 
@@ -58,12 +65,11 @@ void mRight(){
 void setup() {
   Serial.begin(9600); 
 
-  // Servomotores:
+  // Servomotores y pines:
   motorL2.attach(6);
   motorL1.attach(5);
   motorR2.attach(9);
   motorR1.attach(10);
-
 }
 
 /* ---------------------------------
@@ -72,30 +78,18 @@ void setup() {
 
 void loop() {  
   
-  /*
-  // Desplazamos a la posición 0º
-  motorR1.write(-1);
-  Serial.println("-1");
-  // Esperamos 1 segundo
-  delay(5000);*/
-  
-  
   // Desplazamos a la posición 180º
-  der(10);
-  izq(0);
-  delay(5000);
+  mFront();
+  delay(1000);
 
-  der(0);
-  izq(10);
-  // Esperamos 1 segundo
-  delay(5000);
+  mBack();
+  delay(1000);
 
-  /*
-  motorR1.write(180);
-  Serial.println("180");
+  mRight();
+  mLeft();
+  mRight();
+  mLeft();
   // Esperamos 1 segundo
-  delay(5000);
-  */
-  
+  delay(3000); 
   
 }
