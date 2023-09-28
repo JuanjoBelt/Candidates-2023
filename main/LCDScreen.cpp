@@ -6,6 +6,7 @@ LiquidCrystal_I2C scr(0x27,20,4);
 void LCDScreen::init(){
   scr.init();  // initialize the lcd 
   scr.backlight();
+  Serial.println("LCD Inicializada...");
 }
 
 void LCDScreen::print(String msg1, String msg2){

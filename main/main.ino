@@ -9,12 +9,15 @@ Programación: Juanjo Beltrán
 
 #include "mov.h" // Nuestra librería de movimiento
 #include "LCDScreen.h" // Nuestra librería de LCD
+#include "Ultrasonic.h" // Nuestra librería de ultrasónico
 
 /* ---------------------------------
           INSTANCIAR OBJETOS
 --------------------------------- */
-mov m;
-LCDScreen lcd;
+mov motors; // Motores
+LCDScreen lcd; // LCD
+Ultrasonic ultraS; // Suelo
+Ultrasonic ultraT; // Techo
 
 /* ---------------------------------
              VOID SETUP
@@ -23,8 +26,10 @@ LCDScreen lcd;
 void setup() {
 
   Serial.begin(9600); 
-  m.init(); // Movimiento
+  motors.init(); // Movimiento
   lcd.init(); // LCD
+  ultraT.init(8, 7);
+  ultraS.init(3, 4);
 
 }
 
@@ -33,18 +38,19 @@ void setup() {
 --------------------------------- */
 
 void loop() {  
+  float n = ultraS.read();
+  Serial.println(n);
 
-  lcd.print("Adelante");
-  m.front();
-  delay(1000);
-  lcd.print("Atras");
-  m.back();
-  delay(1000);
-  lcd.print("Izquierda");
-  m.left();
-  lcd.print("Derecha");
-  m.right();
-  lcd.print("...");
-  delay(2000);
+  if(n > 20){
+    lcd.print("Adelante");
+    Serial.println("Adelante");
+    motors.front();
+  }
+  else {
+    lcd.print("Bloqueado");
+    Serial.println("Bloqueado");
+    motors.left();
+  }
   
+  delay(1000);
 }

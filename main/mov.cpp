@@ -13,7 +13,7 @@ void mov::init(){
   motorR1.write(90);
   motorR2.write(90);
 
-  Serial.println("Motores inicializados");
+  Serial.println("Motores inicializados...");
 }
 
 void mov::izq(int dir){ // Mover el par izquierdo de motores
