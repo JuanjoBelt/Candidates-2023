@@ -1,3 +1,4 @@
+/*
 int IR0 = A0;
 int IR1 = A1;
 
@@ -18,4 +19,27 @@ void loop() {
   Serial.println(valor1);
   delay(500);
 }
- 
+*/
+
+#include "Infrarrojo.h"
+
+Infrarrojo IR1; // Izquierdo
+Infrarrojo IR2; // Derecho
+
+void setup(){
+  Serial.begin(9600);
+  IR1.init(A0);
+  IR2.init(A1);
+}
+
+void loop(){
+  if(IR1.readL()) Serial.print("Linea");
+  else Serial.print("Suelo");
+
+  Serial.print(" & ");
+
+  if(IR2.readL()) Serial.println("Linea");
+  else Serial.println("Suelo");
+
+  delay(500);
+}
