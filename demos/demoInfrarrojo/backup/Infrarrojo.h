@@ -3,7 +3,6 @@ class Infrarrojo {
   int pin;
   int valor;
   int sens = 45;
-  int sensG = 80;
 
   public :
   void init(int);

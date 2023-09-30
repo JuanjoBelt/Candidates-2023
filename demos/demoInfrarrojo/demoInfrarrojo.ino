@@ -1,26 +1,3 @@
-/*
-int IR0 = A0;
-int IR1 = A1;
-
-void setup(){
-
-  Serial.begin(9600);
-  pinMode(IR1, INPUT) ; //Sensor infrarrojo como entrada
-  pinMode(IR0, INPUT);
-
-}
- 
-void loop() {
-
-  int valor0 = analogRead(IR0); //leemos el valor del sensor infrarrojo
-  int valor1 = analogRead(IR1);
-  Serial.print(valor0);
-  Serial.print(" & ");
-  Serial.println(valor1);
-  delay(500);
-}
-*/
-
 #include "Infrarrojo.h"
 
 Infrarrojo IR1; // Izquierdo
@@ -33,13 +10,15 @@ void setup(){
 }
 
 void loop(){
-  if(IR1.readL()) Serial.print("Linea");
-  else Serial.print("Suelo");
+  if(IR1.readL() == 0) Serial.print("Linea");
+  if(IR1.readL() == 1) Serial.print("Suelo");
+  else Serial.print("Checkpoint");
 
   Serial.print(" & ");
 
-  if(IR2.readL()) Serial.println("Linea");
-  else Serial.println("Suelo");
+  if(IR2.readL() == 0) Serial.println("Linea");
+  if(IR2.readL() == 1) Serial.println("Suelo");
+  else Serial.println("Checkpoint");
 
   delay(500);
 }

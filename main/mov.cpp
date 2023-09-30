@@ -8,49 +8,58 @@ void mov::init(){
   motorR1.attach(10);
   
 
-  motorL1.write(90);
-  motorL2.write(90);
-  motorR1.write(90);
-  motorR2.write(90);
+  stop();
 
   Serial.println("Motores inicializados...");
 }
 
-void mov::izq(int dir){ // Mover el par izquierdo de motores
-  motorL1.write(90 + dir);
-  motorL2.write(90 + dir);
+void mov::izqF(){ // Mover el par izquierdo de motores
+  motorL1.write(sL1 + vL1);
+  motorL2.write(sL2 + vL2);
 }
 
-void mov::der(int dir){ // Mover el par derecho de motores
-  motorR1.write(90 - dir);
-  motorR2.write(90 - dir);
+void mov::izqB(){ // Mover el par izquierdo de motores
+  motorL1.write(sL1 - vL1);
+  motorL2.write(sL2 - vL2);
+}
+
+void mov::derF(){ // Mover el par derecho de motores
+  motorR1.write(sR1 - vR1);
+  motorR2.write(sR2 - vR2);
+}
+
+void mov::derB(){ // Mover el par derecho de motores
+  motorR1.write(sR1 + vR1);
+  motorR2.write(sR2 + vR2);
 }
 
 void mov::stop(){ // Parar los motores
-  izq(0);
-  der(0);
+  motorL1.write(sL1);
+  motorL2.write(sL2);
+  motorR1.write(sR1);
+  motorR2.write(sR2);
 }
 
-void mov::left(){ // Girar 90° a la izquierda
-  izq(vel);
-  der(-vel);
+void mov::right(){ // Girar 90° a la izquierda
+  izqF();
+  derB();
   delay(300);
   stop();
 }
 
-void mov::right(){ // Girar 90° a la derecha
-  izq(-vel);
-  der(vel);
-  delay(300);
+void mov::left(){ // Girar 90° a la derecha
+  izqB();
+  derF();
+  delay(650);
   stop();
 }
 
 void mov::front(){ // Mantener avance
-  izq(vel);
-  der(vel);
+  izqF();
+  derF();
 }
 
 void mov::back(){ // Mantener retroceso
-  izq(-vel);
-  der(-vel);
+  izqB();
+  derB();
 }

@@ -32,12 +32,12 @@ void setup() {
 
   Serial.begin(9600); 
   motors.init(); // Movimiento
-  lcd.init(); // LCD
   ultraT.init(8, 7); // Ultrasonico techo
   ultraS.init(3, 4); // Ultrasonico suelo
   IR1.init(A0); // IR Izquierdo
   IR2.init(A1); // IR Derecho
   color.init(); // Color
+  lcd.init(); // LCD
 
 }
 
@@ -52,16 +52,14 @@ void loop() {
   if(n > 20){
     lcd.print("Adelante", String(n));
     motors.front();
-    delay(500);
+    delay(250);
     motors.stop();
     delay(1000);
   }
 
   else {
     lcd.print("Bloqueado", String(n));
-    motors.back();
-    delay(500);
-    motors.stop();
+    motors.left();
     delay(1000);
   }
   
@@ -73,5 +71,10 @@ void loop() {
 /*
 void zoneSL(){
   lcd.print("Zona C", "Seguidor de linea");
-  while(IR1.read())
-}*/
+  while(color.read() != "Morado"){
+    while(IR1.readL() == 0 && !IR2.readL() == 0 ){
+      
+    }
+  }
+}
+*/
