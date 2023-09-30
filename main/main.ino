@@ -52,11 +52,26 @@ void loop() {
   if(n > 20){
     lcd.print("Adelante", String(n));
     motors.front();
+    delay(500);
+    motors.stop();
+    delay(1000);
   }
+
   else {
     lcd.print("Bloqueado", String(n));
-    motors.left();
+    motors.back();
+    delay(500);
+    motors.stop();
+    delay(1000);
   }
   
-  delay(500);
 }
+
+/* ---------------------------------
+             VOID LOOP
+--------------------------------- */
+/*
+void zoneSL(){
+  lcd.print("Zona C", "Seguidor de linea");
+  while(IR1.read())
+}*/

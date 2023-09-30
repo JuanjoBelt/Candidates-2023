@@ -10,7 +10,7 @@ El parámetro es la velocidad angular
 
 class mov {
   private :
-  int vel = 10;
+  int vel = 5;
   Servo motorL2;
   Servo motorL1;
   Servo motorR2;

@@ -32,25 +32,25 @@ void mov::stop(){ // Parar los motores
 }
 
 void mov::left(){ // Girar 90° a la izquierda
-  izq(10);
-  der(-10);
+  izq(vel);
+  der(-vel);
   delay(300);
   stop();
 }
 
 void mov::right(){ // Girar 90° a la derecha
-  izq(-10);
-  der(10);
+  izq(-vel);
+  der(vel);
   delay(300);
   stop();
 }
 
 void mov::front(){ // Mantener avance
-  izq(10);
-  der(10);
+  izq(vel);
+  der(vel);
 }
 
 void mov::back(){ // Mantener retroceso
-  izq(-10);
-  der(-10);
+  izq(-vel);
+  der(-vel);
 }

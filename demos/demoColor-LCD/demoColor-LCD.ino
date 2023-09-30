@@ -15,6 +15,10 @@ void setup(void) {
   }
 }
 
+Amarillo scl
+Naranja sda
+
+
 void loop(void) {
   uint16_t r, g, b, c;
   tcs.getRawData(&r, &g, &b, &c);

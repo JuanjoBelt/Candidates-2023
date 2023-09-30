@@ -100,6 +100,7 @@ void setup(){
 
 void loop(){
   Serial.println(color.read());
+  //color.printRGB();
   delay(500);
 }
 
