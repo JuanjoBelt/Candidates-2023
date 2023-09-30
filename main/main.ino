@@ -24,6 +24,8 @@ Infrarrojo IR1; // IR Izquierdo
 Infrarrojo IR2; // IR Derecho
 ColorSensor color; // Color
 
+int counter = 0; // Contador de ajuste
+
 /* ---------------------------------
              VOID SETUP
 --------------------------------- */
@@ -47,7 +49,8 @@ void setup() {
 
 void loop() { 
 
-  
+  // Distingue entre zonas para saber qué sección
+  // del código debe ejecutar en cada caso
   lcd.print("Esperando", "detectar zona...");
   // Laberinto
   if(color.read() == "Amarillo"){
@@ -71,20 +74,15 @@ void loop() {
     laberinto();
   }
 
-  //sigzag();
-  
-  
-  //checaultra();
-
-  /*
-  motors.giro180();
-  delay(2000);
-  */
 }
 
 /* ---------------------------------
-             Secciones
+         SECCIONES DE PISTA
 --------------------------------- */
+
+/* ------------------
+        RAMPA
+------------------ */
 
 void sigzag(){
   lcd.print("Fiuuummm!");
@@ -114,6 +112,10 @@ void sigzag(){
     }
   }
 }
+
+/* ------------------
+      LABERINTO
+------------------ */
 
 void laberinto(){
 
@@ -172,10 +174,12 @@ void laberinto(){
 }
 
 
+/* ------------------
+      SECCIÓN B
+------------------ */
 void cubos(){
 
   const int margen = 10;
-  const int marginf = 4;
 
   // Frente libre:
   if(ultraS.read() > margen){
@@ -184,6 +188,14 @@ void cubos(){
     delay(250);
     motors.stop();
     delay(1000);
+
+    counter = counter + 1;
+    if (counter >= 4){
+      lcd.print("Ajuste", color.read());
+      motors.lAjuste();
+      counter = 0;
+    }
+
     cubos();
     return;
   }
@@ -228,9 +240,12 @@ void cubos(){
   }
 }
 
+/* ------------------
+    RAMPA DIRECTA
+------------------ */
+// (Ya no se utiliza)
 
 void rampa(){
-
   while(color.read() != "Rosa"){
     if (ultraT.read() > 10){
       motors.back();
@@ -250,6 +265,10 @@ void rampa(){
   }
 }
 
+/* ------------------
+PRUEBA DE ULTRASÓNIC
+------------------ */
+// (Ya no se usa)
 
 void checaultra(){
   float n = ultraT.read();
@@ -257,6 +276,12 @@ void checaultra(){
   lcd.print(String(n));
   delay(400);
 }
+
+/* ------------------
+     SIGUE LÍNEAS
+------------------ */
+// Código con infrarrojos
+// (Ya no se utiliza)
 
 void zoneSL(){
   lcd.print("Zona C", "Seguidor de linea");
@@ -283,6 +308,12 @@ void zoneSL(){
     }
   }
 }
+
+/* ------------------
+     SIGUE LÍNEAS
+------------------ */
+// Fuerza bruta con un solo sensor de color
+// (Ya no se utiliza)
 
 void zoneSL2(){
   lcd.print("Zona C", "Seguidor de linea");

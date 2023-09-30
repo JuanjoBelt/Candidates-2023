@@ -85,3 +85,10 @@ void mov::giro180(){ // Girar 90° a la derecha
   delay(1300);
   stop();
 }
+
+void mov :: lAjuste(){
+  izqB();
+  derF();
+  delay(50);
+  stop();
+}

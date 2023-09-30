@@ -40,6 +40,7 @@ class mov {
   void init();
   void turn();
   void giro180();
+  void lAjuste();
 
   protected :
 } ;
