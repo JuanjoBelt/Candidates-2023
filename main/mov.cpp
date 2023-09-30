@@ -7,8 +7,10 @@ void mov::init(){
   motorR2.attach(9);
   motorR1.attach(10);
   
-
-  stop();
+  motorL1.write(sL1);
+  motorL2.write(sL2);
+  motorR1.write(sR1);
+  motorR2.write(sR2);
 
   Serial.println("Motores inicializados...");
 }

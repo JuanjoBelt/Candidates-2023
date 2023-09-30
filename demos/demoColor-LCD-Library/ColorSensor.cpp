@@ -25,8 +25,16 @@ void ColorSensor :: printRGB(){
   Serial.println(B);
 }
 
-/*
-String ColorSensor :: read(){
+String ColorSensor :: rgb(){
+  tcs.getRGB(&red,&green,&blue);
+  R = int(red);
+  G = int(green);
+  B = int(blue);
+  String ans = "R" + String(R) + " G" + String(G) + " B" + String(B);
+  return ans;
+}
+
+String ColorSensor :: readAlt(){
   tcs.getRGB(&red,&green,&blue);
   R = int(red);
   G = int(green);
@@ -50,7 +58,6 @@ String ColorSensor :: read(){
 
   return color;
 }
-*/
 
 String ColorSensor :: read(){
   tcs.getRGB(&red, &green, &blue);
@@ -66,13 +73,13 @@ String ColorSensor :: read(){
 
   int amar[3] = {117, 98, 39};
   
-  int Azul[3] = {46, 94, 124};
+  int Azul[3] = {112, 134, 152};
   int Celeste[3]= {50, 109, 100};
-  int Rosa[3]= {101, 84, 66};
+  int Rosa[3]= {119, 94, 81};
   int Blanco[3]={90, 95, 63};
   int Violeta[3]={ 175, 84, 96};
   
-  int Negro[3]= {87, 94, 55};
+  int Negro[3]= {100, 91, 57};
 
   if( (R > (rojo[0] - sens) && R < (rojo[0] + sens) ) &&
       (G > (rojo[1] - sens) && G < (rojo[1] + sens) ) && 

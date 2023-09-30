@@ -15,13 +15,9 @@ class mov {
   Servo motorL1;
   Servo motorR2;
   Servo motorR1;
-  void izqF();
-  void derB();
-  void izqB();
-  void derF();
 
   int vR1 = 15;
-  int vR2 = 11;
+  int vR2 = 12;
   int vL1 = 11;
   int vL2 = 10;
 
@@ -31,6 +27,11 @@ class mov {
   int sL2 = 88;
 
   public :
+  void izqF();
+  void derB();
+  void izqB();
+  void derF();
+
   void stop();
   void right();
   void left();

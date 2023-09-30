@@ -62,6 +62,9 @@ void loop() {
     delay(1000);
     rampa();
   }
+  else {
+    laberinto();
+  }
   
   
   //checaultra();
@@ -78,7 +81,8 @@ void loop() {
 
 void laberinto(){
 
-  const int margen = 15;
+  const int margen = 10;
+  const int marginf = 4;
 
   // Frente libre:
   if(ultraS.read() > margen){
@@ -134,7 +138,7 @@ void laberinto(){
 void rampa(){
 
   while(color.read() != "Rosa"){
-    if (ultraS.read() > 10){
+    if (ultraT.read() > 10){
       motors.back();
       delay(500);
       motors. stop();
@@ -152,8 +156,9 @@ void rampa(){
   }
 }
 
+
 void checaultra(){
-  float n = ultraS.read();
+  float n = ultraT.read();
   Serial.println(n);
   lcd.print(String(n));
   delay(400);
