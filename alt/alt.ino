@@ -24,6 +24,8 @@ Infrarrojo IR1; // IR Izquierdo
 Infrarrojo IR2; // IR Derecho
 ColorSensor color; // Color
 
+int counter = 0; // Contador de ajuste
+
 /* ---------------------------------
              VOID SETUP
 --------------------------------- */
@@ -62,7 +64,7 @@ void loop() {
     delay(1000);
     sigzag();
   }
-  else if(color.read() == "Rosa"){
+  else if(color.read() == "Negro"){
     lcd.print("Zona B:", "Cubitos");
     delay(1000);
     cubos();
@@ -70,6 +72,7 @@ void loop() {
   else {
     laberinto();
   }
+
 
   //sigzag();
   
@@ -80,6 +83,8 @@ void loop() {
   motors.giro180();
   delay(2000);
   */
+
+  //cubos();
 }
 
 /* ---------------------------------
@@ -175,7 +180,6 @@ void laberinto(){
 void cubos(){
 
   const int margen = 10;
-  const int marginf = 4;
 
   // Frente libre:
   if(ultraS.read() > margen){
@@ -184,6 +188,14 @@ void cubos(){
     delay(250);
     motors.stop();
     delay(1000);
+
+    counter = counter + 1;
+    if (counter >= 4){
+      lcd.print("Ajuste", color.read());
+      motors.lAjuste();
+      counter = 0;
+    }
+
     cubos();
     return;
   }

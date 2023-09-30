@@ -11,7 +11,6 @@ class ColorSensor {
   public :
   void init();
   void printRGB();
-  String rgb();
   //String read();
   String read();
   
