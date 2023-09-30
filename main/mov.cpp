@@ -76,3 +76,10 @@ void mov::turn(){ // Girar un poco a la izquierda
   delay(100);
   stop();
 }
+
+void mov::giro180(){ // Girar 90° a la derecha
+  izqB();
+  derF();
+  delay(1300);
+  stop();
+}

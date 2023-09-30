@@ -45,50 +45,93 @@ void setup() {
              VOID LOOP
 --------------------------------- */
 
-void loop() {  
+void loop() { 
+
+  
+  lcd.print("Esperando", "detectar zona...");
   // Laberinto
-  if(color.read() == "Amarillo"){
-    calibramotores();
+  if(1){
+    lcd.print("Zona A:", "Laberinto");
+    delay(1000);
+    laberinto();
+    motors.right(); // Posicionarse
   }
   // Rampa
   else if(color.read() == "Celeste"){
+    lcd.print("Zona A2:", "Rampa chida");
+    delay(1000);
     rampa();
   }
+  
+  
+  //checaultra();
+
+  /*
+  motors.giro180();
+  delay(2000);
+  */
 }
 
 /* ---------------------------------
              Secciones
 --------------------------------- */
 
-void calibramotores(){
-  lcd.print("Zona A:", "Laberinto");
-  delay(1000);
+void laberinto(){
 
-  float n = ultraS.read();
-  Serial.println(n);
+  const int margen = 15;
 
-  if(n > 10){
+  // Frente libre:
+  if(ultraS.read() > margen){
     lcd.print("Adelante", color.read());
     motors.front();
     delay(250);
     motors.stop();
     delay(1000);
+    laberinto();
+    return;
   }
-
+  // Checa tu derecha:
   else {
     lcd.print("Bloqueado", color.read());
     motors.back();
     delay(150);
     motors.stop();
     delay(1000);
+    
+    lcd.print("Reviso a la derecha");
     motors.right();
     delay(1000);
+
+    if(ultraS.read() > margen){
+      laberinto();
+      return;
+    }
+
+    // Checa tu izquierda:
+    else {
+      lcd.print("Checar la izquierda", color.read());
+      motors.left();
+      delay(1000);
+      motors.left();
+      delay(1000);
+
+      if(ultraS.read() > margen){
+        laberinto();
+        return;
+      }
+
+      else {
+        lcd.print("Dar la vuelta 180", color.read());
+        motors.left();
+        delay(1000);
+        laberinto();
+        return;
+      }
+    }
   }
 }
 
 void rampa(){
-  lcd.print("Zona A2:", "Rampa chida");
-  delay(1000);
 
   while(color.read() != "Rosa"){
     if (ultraS.read() > 10){
@@ -110,7 +153,7 @@ void rampa(){
 }
 
 void checaultra(){
-  float n = ultraT.read();
+  float n = ultraS.read();
   Serial.println(n);
   lcd.print(String(n));
   delay(400);

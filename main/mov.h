@@ -20,8 +20,8 @@ class mov {
   void izqB();
   void derF();
 
-  int vR1 = 10;
-  int vR2 = 10;
+  int vR1 = 15;
+  int vR2 = 11;
   int vL1 = 11;
   int vL2 = 10;
 
@@ -38,6 +38,7 @@ class mov {
   void back();
   void init();
   void turn();
+  void giro180();
 
   protected :
 } ;
