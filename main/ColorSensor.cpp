@@ -25,7 +25,8 @@ void ColorSensor :: printRGB(){
   Serial.println(B);
 }
 
-String ColorSensor :: readAlt(){
+/*
+String ColorSensor :: read(){
   tcs.getRGB(&red,&green,&blue);
   R = int(red);
   G = int(green);
@@ -49,6 +50,7 @@ String ColorSensor :: readAlt(){
 
   return color;
 }
+*/
 
 String ColorSensor :: read(){
   tcs.getRGB(&red, &green, &blue);

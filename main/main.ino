@@ -46,11 +46,29 @@ void setup() {
 --------------------------------- */
 
 void loop() {  
+  // Laberinto
+  if(color.read() == "Amarillo"){
+    calibramotores();
+  }
+  // Rampa
+  else if(color.read() == "Celeste"){
+    rampa();
+  }
+}
+
+/* ---------------------------------
+             Secciones
+--------------------------------- */
+
+void calibramotores(){
+  lcd.print("Zona A:", "Laberinto");
+  delay(1000);
+
   float n = ultraS.read();
   Serial.println(n);
 
-  if(n > 20){
-    lcd.print("Adelante", String(n));
+  if(n > 10){
+    lcd.print("Adelante", color.read());
     motors.front();
     delay(250);
     motors.stop();
@@ -58,23 +76,85 @@ void loop() {
   }
 
   else {
-    lcd.print("Bloqueado", String(n));
-    motors.left();
+    lcd.print("Bloqueado", color.read());
+    motors.back();
+    delay(150);
+    motors.stop();
+    delay(1000);
+    motors.right();
     delay(1000);
   }
-  
 }
 
-/* ---------------------------------
-             VOID LOOP
---------------------------------- */
-/*
-void zoneSL(){
-  lcd.print("Zona C", "Seguidor de linea");
-  while(color.read() != "Morado"){
-    while(IR1.readL() == 0 && !IR2.readL() == 0 ){
-      
+void rampa(){
+  lcd.print("Zona A2:", "Rampa chida");
+  delay(1000);
+
+  while(color.read() != "Rosa"){
+    if (ultraS.read() > 10){
+      motors.back();
+      delay(500);
+      motors. stop();
+      delay(1000);
+    }
+    else {
+      motors.back();
+      delay(150);
+      motors.stop();
+      delay(1000);
+      motors.turn();
+      motors.turn();
+      motors.turn();
     }
   }
 }
-*/
+
+void checaultra(){
+  float n = ultraT.read();
+  Serial.println(n);
+  lcd.print(String(n));
+  delay(400);
+}
+
+void zoneSL(){
+  lcd.print("Zona C", "Seguidor de linea");
+
+  while(1){ // Para siempre
+    while(IR1.readL() == "Suelo" && IR2.readL() == "Suelo" ){ // Mientras los infrarrojos detecten suelo
+      motors.front(); // Avanza
+    }
+    motors.stop(); // Detenerse
+    if(IR1.readL() == "Checkpoint" && IR2.readL() == "Checkpoint"){
+      delay(4000);
+      while(IR1.readL() == "Checkpoint" && IR2.readL() == "Checkpoint"){
+        motors.front();
+      }
+      motors.stop();
+    }
+    else if(IR1.readL() == "Linea" || IR2.readL() == "Linea"){ // Si hay líneas...
+      if(IR1.read() == "Linea"){ // Si hay línea en el infrarrojo izquierdo
+        motors.left();
+      }
+      else {
+        motors.right();
+      }
+    }
+  }
+}
+
+void zoneSL2(){
+  lcd.print("Zona C", "Seguidor de linea");
+
+  while(1){
+    while (color.read() == "VerdeOsc") {
+      motors.front();
+      delay(200);
+    }
+    motors.stop();
+    delay(200);
+    // Girar:
+    while (color.read() != "VerdeOsc"){
+      motors.turn();
+    }
+  }
+}

@@ -37,7 +37,8 @@ class mov {
   void front();
   void back();
   void init();
-  
+  void turn();
+
   protected :
 } ;
 
