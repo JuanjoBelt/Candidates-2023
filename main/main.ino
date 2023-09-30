@@ -50,7 +50,7 @@ void loop() {
   
   lcd.print("Esperando", "detectar zona...");
   // Laberinto
-  if(1){
+  if(color.read() == "Amarillo"){
     lcd.print("Zona A:", "Laberinto");
     delay(1000);
     laberinto();
